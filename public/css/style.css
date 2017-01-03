@@ -1,0 +1,13 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+.m15{ margin: 15px;}
+.widthCompare-80{width: 80%;}
+.widthCompare-15{width:15%;}
+.fr{float: right;}
+.tc{ text-align: center;font-size: 18px;font-weight: 600;}
