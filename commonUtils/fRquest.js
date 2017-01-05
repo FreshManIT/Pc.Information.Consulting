@@ -5,7 +5,7 @@ var url=require('url');
 //Request option.
 var option={
     hostname:'',
-    port:'',
+    port:'80',
     method:'GET',
     path:'',
     headers:{
@@ -59,11 +59,9 @@ var postRequest=function(path,data,callback){
     }
     option.path=path;    
     var requestLinkObj=url.parse(path);
-    option.port=requestLinkObj.port;
+    option.port=requestLinkObj.port || 80;
     option.hostname=requestLinkObj.hostname;
-    // console.log(option.port);
     option.method="POST";
-
     //Need post data.
     var postDataStr=querystring.stringify(data);
     var request=http.request(option,function(res){
@@ -72,7 +70,6 @@ var postRequest=function(path,data,callback){
         // console.log("Hearder:"+JSON.stringify(httpResponse.headers));
         res.on('data',function(chunk){
             body=chunk;
-            // console.log("Body:"+body);
             callback(this.error,httpResponse,body);
             return;
         });
