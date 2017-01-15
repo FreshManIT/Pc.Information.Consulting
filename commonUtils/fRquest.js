@@ -76,6 +76,13 @@ var postRequest=function(path,data,callback){
             callback(this.error,httpResponse,body);
             return;
         });
+        res.on("end",function(chunk){
+            if(!chunk){
+               this.error="interface return is null.please check interface data." ;
+               callback(this.error,httpResponse,null);
+               return;
+            }
+        });
     });
     request.on('error',function(error){
         this.error=error;
