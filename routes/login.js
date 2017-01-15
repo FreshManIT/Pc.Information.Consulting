@@ -1,5 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var config=require('../config/default');
+var fRequest=require('../commonUtils/fRquest');
+var requirecrypto=require('../commonUtils/mixCrypto');
+var aesHelper=new requirecrypto(config.session.key||"FreshMan");
 
 /* GET index page. */
 router.get('/', function(req, res,next) {
@@ -12,16 +16,24 @@ router.route("/login").get(function(req,res){
 }).post(function(req,res){// get post for login.
 	var uname = req.body.uname;//get post uname data.
 	var password=req.body.upwd;//get post password data
-	if(uname=='admin' && password=='freshman'){
+	if(!uname || !password){
+		req.session.error = "用户名或密码必填";
+		res.send(404);
+		return;
+	}
+	password=aesHelper.encrypt(password);
+	fRequest.getRequest(config.apiUrl+'/LoginUser/Login?userName='+uname+'&password='+password,function(error,httpResponse,body){
+		if(error || httpResponse.statusCode!=200 || !body){
+			req.session.error = "用户名或密码错误";
+			res.send(404);
+			return;
+		}
 		//TODO data check.
 		var user={userName:uname,password:password};
-		res.cookie('userInfo', user, {maxAge: 60 * 1000});
+		var userCook=aesHelper.encrypt(JSON.stringify(user));
+		res.cookie('userInfo', userCook, {maxAge: 24*60*60});
 		res.redirect('/home');
-	}
-	else{
-		req.session.error = "用户名或密码错误";
-		res.send(404);
-	}
+	});
 });
 
 /* GET register page. */
