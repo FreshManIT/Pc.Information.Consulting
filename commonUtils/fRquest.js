@@ -10,7 +10,8 @@ var option={
     path:'',
     headers:{
         'Content-Type':'application/x-www-from-urlencoded; charset=UTF-8'
-    }
+    },
+    timeout:3000
 };
 
 //get interface data.path is url link,callback is callback function.
@@ -72,13 +73,6 @@ var postRequest=function(path,data,callback){
             body=chunk;
             callback(this.error,httpResponse,body);
             return;
-        });
-        res.on("end",function(chunk){
-            if(!chunk){
-               this.error="interface return is null.please check interface data." ;
-               callback(this.error,httpResponse,null);
-               return;
-            }
         });
     });
     request.on('error',function(error){
