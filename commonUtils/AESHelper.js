@@ -14,7 +14,7 @@ var Defaults={
 /**
  * 构造方法
  */
-function MixCrypto(options){
+function AESHelper(options){
     if(typeof options=='string'){
         Defaults.key=options;
         options=Defaults;
@@ -28,7 +28,7 @@ function MixCrypto(options){
     /**
      * 添加加密原型方法
      */
-    this.encrypt=function(plaintext){
+    this.AesEnCoding=function(plaintext){
             var cipher=crypto.createCipher(this.algorithms,this.key);
             return cipher.update(plaintext,this.inputEncoding,this.outputEncoding)+cipher.final(this.outputEncoding);
     };
@@ -36,7 +36,7 @@ function MixCrypto(options){
     /**
      * 添加解密原型方法
      */
-    this.decrypt=function(crypted){
+    this.AesDeCoding=function(crypted){
         try{
             var decipher=crypto.createDecipher(this.algorithms,this.key);
             return decipher.update(crypted,this.outputEncoding,this.inputEncoding)+decipher.final(this.inputEncoding);
@@ -49,4 +49,4 @@ function MixCrypto(options){
 /**
  * 抛出方法
  */
-module.exports=MixCrypto;
+module.exports=AESHelper;

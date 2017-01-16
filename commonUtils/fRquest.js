@@ -28,14 +28,10 @@ var getRequest=function(path,callback){
     var requestLinkObj=url.parse(path);
     option.port=requestLinkObj.port;
     option.hostname=requestLinkObj.hostname;
-    // console.log(option.port);
     var request=http.request(option,function(res){
         httpResponse=res;
-        // console.log("Status:"+res.statusCode);
-        // console.log("Hearder:"+JSON.stringify(httpResponse.headers));
         res.on('data',function(chunk){
-            body=chunk;
-            // console.log("Body:"+body);
+            body= eval('(' + chunk + ')');
             callback(this.error,httpResponse,body);
             return;
         });
@@ -67,8 +63,6 @@ var postRequest=function(path,data,callback){
     var postDataStr=querystring.stringify(data);
     var request=http.request(option,function(res){
         httpResponse=res;
-        // console.log("Status:"+res.statusCode);
-        // console.log("Hearder:"+JSON.stringify(httpResponse.headers));
         res.on('data',function(chunk){
             body=chunk;
             callback(this.error,httpResponse,body);

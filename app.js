@@ -14,8 +14,11 @@ var app = express();
 var routes = require('./routes');
 var middlewares=require('./middlewares');
 
+/**
+ * session
+ */
 app.use(session({ 
-  name:config.session.key,
+  	name:config.session.key,
 	secret: config.session.secret,
 	cookie:{ 
 		maxAge: config.session.maxAge
@@ -33,6 +36,9 @@ app.use(multer());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/**
+ * 处理异常，错误
+ */
 app.use(function(req,res,next){ 
   res.locals.user = req.session.user || {};
 	var err = req.session.error;
