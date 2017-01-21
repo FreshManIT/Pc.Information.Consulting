@@ -6,13 +6,6 @@ module.exports = function(http) {
     var userList = {};
     var freeList = [];
     var count = 0;
-    String.prototype.Format = function() {
-        var args = arguments || [];
-        var str = this.valueOf();
-        return str.replace(/{(\d+)}/g, function(a, b) {
-            return args[b] !== undefined ? args[b] : a;
-        });
-    };
     io.on('connection', function(socket) {
         count += 1;
         socket.on('newUser', function(data) {
@@ -58,7 +51,9 @@ module.exports = function(http) {
         })
         socket.on('sendImg', function(data) {
             if (userServer.hasOwnProperty(data.to)) {
+                //消息发送
                 userServer[data.to].emit('getImg', { msg: data.msg });
+                //记录消息
                 var postData = {
                     fromId: socket.id,
                     toId: data.to,
@@ -68,6 +63,7 @@ module.exports = function(http) {
                 };
                 fRequest.postRequest(config.apiUrl + '/ChatInfoHistory/AddChatInfo', postData);
             } else {
+                //离线状态
                 socket.emit("err", { msg: "对方已经下线或者断开连接" })
             }
         })
