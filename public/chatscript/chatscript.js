@@ -15,23 +15,23 @@ function InitChat() {
     }
     $screen.animate({
         "left": "-0%"
-    }, 800)
+    }, 800);
     socket = io.connect('ws://' + host);
     socket.emit('newUser', {
         user_name: name,
         user_id: id
-    })
+    });
     socket.on('onlineCount', function(data) {
         var len = data.length
         if (len > 1) {
-            $("#ul").html("匹配中，请稍后...")
+            $("#ul").html("匹配中，请稍后...");
             socket.on('getChat', function(data, nameList) { //如果广播到用户包含自己，则匹配聊天
                 if (data.p1 == id) {
-                    to = data.p2
+                    to = data.p2;
                 } else if (data.p2 == id) {
-                    to = data.p1
+                    to = data.p1;
                 }
-                var name = nameList[to]
+                var name = nameList[to];
                 if (to) {
                     $screen.animate({
                         "left": "-100%"
@@ -39,11 +39,11 @@ function InitChat() {
                     $("#nickname").text("与" + name + "聊天中...")
                     $("#ul").css("display", "none")
                 }
-            })
+            });
         } else {
             $("#ul").html("当前服务器只有您一位空闲用户，请等待其他用户加入<br><br><p style='text-align:center'>来自：QQ1174632606</p>")
         }
-    })
+    });
 
     socket.on('addCount', function(data) { //在线用户增加
         $("#count").text(data)
@@ -119,17 +119,17 @@ $msg.blur(function() {
 })
 
 $("#img").click(function() { //模拟file控件点击
-    $("#photo").click()
+    $("#photo").click();
 
 })
 
 $("#photo").change(function() { // 选中图片后出现弹窗
     var reader = new FileReader();
     reader.onload = function(e) {
-        $("#preview").attr("src", this.result)
-        $("#previewBox").css("display", "block")
+        $("#preview").attr("src", this.result);
+        $("#previewBox").css("display", "block");
     }
-    reader.readAsDataURL(this.files[0])
+    reader.readAsDataURL(this.files[0]);
 })
 
 $("#sendImg").click(function() {
@@ -137,9 +137,9 @@ $("#sendImg").click(function() {
     socket.emit('sendImg', {
         msg: img,
         to: to
-    })
-    $("#previewBox").css("display", "none")
-    sendMsg("img")
+    });
+    $("#previewBox").css("display", "none");
+    sendMsg("img");
 })
 
 $("body").delegate('.check', 'click', function() {
@@ -169,14 +169,14 @@ function sendMsg(type) { // 发送消息函数
         socket.emit('message', {
             msg: msg,
             to: to
-        })
-        var html = '<div class="clearfix"><p class="chat-box-r">' + replace_em(msg) + '</p></div>'
-        $content.append(html)
+        });
+        var html = '<div class="clearfix"><p class="chat-box-r">' + replace_em(msg) + '</p></div>';
+        $content.append(html);
         $("#msg").val("").blur() // 发送信息后置空，失焦 
     } else {
         var msg = $("#preview").attr("src")
-        var html = '<div class="clearfix"><p class="chat-box-r"><img class="check" src="' + replace_em(msg) + '"/></p></div>'
-        $content.append(html)
+        var html = '<div class="clearfix"><p class="chat-box-r"><img class="check" src="' + replace_em(msg) + '"/></p></div>';
+        $content.append(html);
     }
-    toBottom()
+    toBottom();
 }

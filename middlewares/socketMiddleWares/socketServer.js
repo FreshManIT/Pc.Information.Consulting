@@ -13,17 +13,17 @@ module.exports = function(http) {
                 user_id = data.user_id;
             socket.id = user_id;
             userServer[user_id] = socket;
-            userList[user_id] = nickname
-            freeList.push(user_id)
-            io.emit('onlineCount', freeList)
-            io.emit('addCount', count)
+            userList[user_id] = nickname;
+            freeList.push(user_id);
+            io.emit('onlineCount', freeList);
+            io.emit('addCount', count);
             if (freeList.length > 1) {
                 var from = user_id;
-                Arrayremove(freeList, from)
+                Arrayremove(freeList, from);
                 if (freeList.length == 1) {
-                    n = 0
+                    n = 0;
                 } else {
-                    n = Math.floor(Math.random() * freeList.length)
+                    n = Math.floor(Math.random() * freeList.length);
                 }
                 var to = freeList[n]
                 Arrayremove(freeList, to)
