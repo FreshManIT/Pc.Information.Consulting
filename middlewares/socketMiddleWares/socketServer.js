@@ -5,6 +5,8 @@ module.exports = function(http) {
     var userServer = {};
     var userList = {};
     var freeList = [];
+    var allUserList = GetUserList(0);
+    var onlineCount = 0;
     var count = 0;
     io.on('connection', function(socket) {
         count += 1;
@@ -15,6 +17,7 @@ module.exports = function(http) {
             userServer[user_id] = socket;
             userList[user_id] = nickname;
             freeList.push(user_id);
+            onlineCount = AddNewUser(user_id, nickname, 1);
             io.emit('onlineCount', freeList);
             io.emit('addCount', count);
             if (freeList.length > 1) {
@@ -33,6 +36,7 @@ module.exports = function(http) {
         socket.on('disconnect', function() { //用户注销登陆执行内容
             count -= 1;
             var id = socket.id
+            ReMoveUser(userServer[id].id || 0, userList[id], 1);
             Arrayremove(freeList, id)
             delete userServer[id]
             delete userList[id]
@@ -67,15 +71,54 @@ module.exports = function(http) {
                 socket.emit("err", { msg: "对方已经下线或者断开连接" })
             }
         })
-    })
+    });
 
+    /**
+     * 移除用户
+     */
     function Arrayremove(array, name) {
         var len = array.length;
         for (var i = 0; i < len; i++) {
             if (array[i] == name) {
-                array.splice(i, 1)
-                break
+                array.splice(i, 1);
+                break;
             }
         }
+    }
+
+    /**
+     * 获取指定类型的用户列表
+     */
+    function GetUserList(ruleType) {
+        fRequest.getRequest(config.apiUrl + '/ChatInfoHistory/GetAllOnlineUserModels?ruleType={0}'.Format(ruleType), function(error, httpResponse, body) {
+            if (error || httpResponse.statusCode != 200 || !body || !body.data) {
+                return [];
+            }
+            return body.data;
+        });
+    }
+
+    /**
+     * Add new Online user.
+     */
+    function AddNewUser(userId, userName, ruleType) {
+        fRequest.getRequest(config.apiUrl + '/ChatInfoHistory/AddOnlineUser?userId={0}&userName={1}&ruleType={2}'.Format(userId, userName, ruleType), function(error, httpResponse, body) {
+            if (error || httpResponse.statusCode != 200 || !body || !body.data) {
+                //Add new user into redis error .
+            }
+            onlineCount = body.data;
+        });
+    }
+
+    /**
+     * 删除下线用户
+     */
+    function ReMoveUser(userId, userName, ruleType) {
+        fRequest.getRequest(config.apiUrl + '/ChatInfoHistory/RemoveOnlineUser?userId={0}&userName={1}&ruleType={2}'.Format(userId, userName, ruleType), function(error, httpResponse, body) {
+            if (error || httpResponse.statusCode != 200 || !body || !body.data) {
+                //Add new user into redis error .
+            }
+            onlineCount = body.data;
+        });
     }
 }
