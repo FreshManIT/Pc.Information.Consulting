@@ -34,7 +34,11 @@ var getRequest = function(path, callback) {
     var request = http.request(option, function(res) {
         httpResponse = res;
         res.on('data', function(chunk) {
-            body = eval('(' + chunk + ')');
+            try {
+                body = eval('(' + chunk + ')');
+            } catch (er) {
+                body = chunk.toString();
+            }
             callback(this.error, httpResponse, body);
             return;
         });

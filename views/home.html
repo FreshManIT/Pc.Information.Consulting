@@ -1,17 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/css/style.css' />
-    <style type="text/css">
-	a{margin-left: 20px; text-decoration: none;}
-	a:hover{text-decoration: underline;}
-    </style>
-  </head>
-  <body>
-  <h1>Your name:   <%- user.name %></h1>
-    <p>Welcome to your home ~</p>
-    <p><a href="/logout">我要注销 </a>
-    </p>
-  </body>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="http://c.csdnimg.cn/public/common/toolbar/css/index.css">
+    <link rel="stylesheet" href="http://c.csdnimg.cn/cdn/201502/css/font-awesome.min.css">
+    <link href="css/geek.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://geek.csdn.net/assets/css/comments.css" />
+</head>
+
+<body>
+    <div>
+        <dl class="geek_list" id="">
+            <dt class="left">
+                <div class="news_vote" voteid="136452">
+                    <i class="fa fa-sort-up" datatype="up"></i>
+                    <div class="count">0</div>
+                    <i class="fa fa-sort-down" datatype="down"></i>
+                </div>
+            </dt>
+            <dd>
+                <div class="list_ad">
+                    <span class="tracking-ad" data-mod="popu_81">
+                        <a data-pjax="" class="link_pjax" tabindex="0" href="http://geek.csdn.net/news/detail/136452" title="点击查看详情"><!--<span>推广</span>--></a>
+                    <!--<a href="#" id="generalize"></a>-->
+                    </span>
+                </div>
+                <div class="list_ad_mobile">
+                    <span class="tracking-ad" data-mod="popu_81">
+                        <a class="link_pjax" tabindex="0" href="http://geek.csdn.net/news/detail/136452" title="点击查看详情" target="_blank"><!--<span>推广</span>--></a>
+                    <!--<a href="#" id="generalize"></a>-->
+                    </span>
+                </div>
+                <span class="tracking-ad" data-mod="popu_81">
+                            <a href="http://www.codeceo.com/article/browser-event.html" class="title" target="_blank">从 Chrome 源码看浏览器的事件机制</a>
+                        </span>
+                <ul class="list-inline">
+                    <li><i class="fa fa-link" title="codeceo.com"></i><a href="http://www.codeceo.com/article/browser-event.html" target="_blank">codeceo.com</a></li>
+                    <li>3小时前</li>
+                    <li><a href="http://geek.csdn.net/forum/47" data-target="">前端</a></li>
+                    <li class="read_num"><span>阅读数</span><em>1044</em></li>
+                </ul>
+            </dd>
+
+            <dt class="right">
+                                                    <!--<span class="tracking-ad" data-mod="popu_81">
+                <a href="" target="_blank">
+                    <i class="fa fa-comment"></i>
+                    <span class="count"></span>
+                </a>
+                </span>-->
+                <a href="http://geek.csdn.net/user/publishlist/zhangmingming22" target="_blank">
+                    <img src="http://avatar.csdn.net/6/6/B/2_zhangmingming22.jpg" class="avatar">
+                </a>
+            </dt>
+        </dl>
+    </div>
+</body>
+
 </html>

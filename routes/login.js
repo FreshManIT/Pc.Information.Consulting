@@ -83,8 +83,14 @@ router.get("/home", function(req, res) {
             res.redirect("/login");
             return;
         }
+        res.render("home", {
+            title: '信息咨询系统',
+            user: {
+                name: userModel.userName,
+                id: userModel.id
+            }
+        });
     }
-    res.render("home", { title: '信息咨询系统' });
 });
 
 /**
