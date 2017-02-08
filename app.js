@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var config = require('config-lite');
 var session = require('express-session');
+var requirecrypto = require('./commonUtils/AESHelper');
+var aesHelper = new requirecrypto(config.session.key || "FreshMan");
 
 var app = express();
 
@@ -40,7 +42,15 @@ app.use(express.static(path.join(__dirname, 'public')));
  * 处理异常，错误
  */
 app.use(function(req, res, next) {
-    res.locals.user = req.session.user || {};
+    var userInfoCook = req.cookies.userInfo;
+    res.locals.user = {};
+    if (userInfoCook) {
+        var userModel = JSON.parse(aesHelper.AesDeCoding(userInfoCook));
+        res.locals.user = {
+            name: userModel.userName,
+            id: userModel.id
+        };
+    }
     var err = req.session.error;
     delete req.session.error;
     res.locals.message = "";

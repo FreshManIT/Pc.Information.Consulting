@@ -7,18 +7,11 @@ var aesHelper = new requirecrypto(config.session.key || "FreshMan");
 
 /* GET index page. */
 router.get('/', function(req, res, next) {
-    if (req.cookies.userInfo) { //到达/home路径首先判断是否已经登录
-        var userInfoCook = req.cookies.userInfo;
-        var userModel = JSON.parse(aesHelper.AesDeCoding(userInfoCook));
-        res.render("home", {
-            title: '信息咨询系统',
-            user: {
-                name: userModel.userName,
-                id: userModel.id
-            }
-        });
-    }
     res.render('home', { title: '信息咨询系统' });
+});
+
+router.get('/json', function(req, res, next) {
+    res.json({ f: "s", t: "title" });
 });
 
 /* GET login page. */
@@ -93,11 +86,7 @@ router.get("/home", function(req, res) {
             return;
         }
         res.render("home", {
-            title: '信息咨询系统',
-            user: {
-                name: userModel.userName,
-                id: userModel.id
-            }
+            title: '信息咨询系统'
         });
     }
 });
