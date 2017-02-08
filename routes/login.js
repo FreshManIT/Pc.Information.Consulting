@@ -7,7 +7,18 @@ var aesHelper = new requirecrypto(config.session.key || "FreshMan");
 
 /* GET index page. */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+    if (req.cookies.userInfo) { //到达/home路径首先判断是否已经登录
+        var userInfoCook = req.cookies.userInfo;
+        var userModel = JSON.parse(aesHelper.AesDeCoding(userInfoCook));
+        res.render("home", {
+            title: '信息咨询系统',
+            user: {
+                name: userModel.userName,
+                id: userModel.id
+            }
+        });
+    }
+    res.render('home', { title: '信息咨询系统' });
 });
 
 /* GET login page. */
@@ -36,7 +47,9 @@ router.route("/login").get(function(req, res) {
     });
 });
 
-/* GET register page. */
+/**
+ *  GET register page.
+ *  */
 router.route("/register").get(function(req, res) {
     res.render("register", { title: '用户注册' });
 }).post(function(req, res) {
@@ -63,7 +76,9 @@ router.route("/register").get(function(req, res) {
     });
 });
 
-/* GET home page. */
+/**
+ *  GET home page.
+ *  */
 router.get("/home", function(req, res) {
     if (!req.cookies.userInfo) { //到达/home路径首先判断是否已经登录
         req.session.error = "请先登录"
@@ -94,6 +109,7 @@ router.get("/logout", function(req, res) { // 到达 /logout 路径则登出， 
     req.cookies.userInfo = null;
     req.session.user = null;
     req.session.error = null;
+    res.cookie('userInfo', null, { maxAge: 0 });
     res.redirect("/");
 });
 

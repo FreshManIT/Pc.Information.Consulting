@@ -5,28 +5,28 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var config=require('config-lite');
+var config = require('config-lite');
 var session = require('express-session');
 
 var app = express();
 
 //custormer middlewares
 var routes = require('./routes');
-var middlewares=require('./middlewares');
+var middlewares = require('./middlewares');
 
 /**
  * session
  */
-app.use(session({ 
-  	name:config.session.key,
-	secret: config.session.secret,
-	cookie:{ 
-		maxAge: config.session.maxAge
-	}
+app.use(session({
+    name: config.session.key,
+    secret: config.session.secret,
+    cookie: {
+        maxAge: config.session.maxAge
+    }
 }));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.engine("html",require("ejs").__express); // or   app.engine
+app.engine("html", require("ejs-locals")); // or   app.engine
 app.set('view engine', 'html');
 
 app.use(logger('dev'));
@@ -39,15 +39,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 /**
  * 处理异常，错误
  */
-app.use(function(req,res,next){ 
-  res.locals.user = req.session.user || {};
-	var err = req.session.error;
-	delete req.session.error;
-	res.locals.message = "";
-	if(err){ 
-		res.locals.message = '<div class="alert alert-danger" style="margin-bottom:20px;color:red;">'+err+'</div>';
-	}
-	next();
+app.use(function(req, res, next) {
+    res.locals.user = req.session.user || {};
+    var err = req.session.error;
+    delete req.session.error;
+    res.locals.message = "";
+    if (err) {
+        res.locals.message = '<div class="alert alert-danger" style="margin-bottom:20px;color:red;">' + err + '</div>';
+    }
+    next();
 });
 
 //路由

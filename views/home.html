@@ -1,63 +1,466 @@
-<!DOCTYPE html>
-<html>
+<% layout('layout') -%>
+    <div class="main layui-clear">
+        <div class="wrap">
+            <div class="content">
+                <div class="fly-tab">
+                    <form action="http://cn.bing.com/search" class="fly-search" style="width:84%; margin-left: 0px;">
+                        <i class="iconfont icon-sousuo"></i>
+                        <input class="layui-input" autocomplete="off" placeholder="搜索内容，回车跳转" type="text" name="q">
+                    </form>
+                    <a href="/chat" class="layui-btn jie-add">当面咨询</a>
+                </div>
 
-<head>
-    <title>
-        <%= title %>
-    </title>
-    <link rel="stylesheet" href="http://c.csdnimg.cn/public/common/toolbar/css/index.css">
-    <link rel="stylesheet" href="http://c.csdnimg.cn/cdn/201502/css/font-awesome.min.css">
-    <link href="css/geek.css" rel="stylesheet" />
-    <link rel="stylesheet" href="http://geek.csdn.net/assets/css/comments.css" />
-</head>
 
-<body>
-    <div>
-        <dl class="geek_list" id="">
-            <dt class="left">
-                <div class="news_vote" voteid="136452">
-                    <i class="fa fa-sort-up" datatype="up"></i>
-                    <div class="count">0</div>
-                    <i class="fa fa-sort-down" datatype="down"></i>
-                </div>
-            </dt>
-            <dd>
-                <div class="list_ad">
-                    <span class="tracking-ad" data-mod="popu_81">
-                        <a data-pjax="" class="link_pjax" tabindex="0" href="http://geek.csdn.net/news/detail/136452" title="点击查看详情"><!--<span>推广</span>--></a>
-                    <!--<a href="#" id="generalize"></a>-->
-                    </span>
-                </div>
-                <div class="list_ad_mobile">
-                    <span class="tracking-ad" data-mod="popu_81">
-                        <a class="link_pjax" tabindex="0" href="http://geek.csdn.net/news/detail/136452" title="点击查看详情" target="_blank"><!--<span>推广</span>--></a>
-                    <!--<a href="#" id="generalize"></a>-->
-                    </span>
-                </div>
-                <span class="tracking-ad" data-mod="popu_81">
-                            <a href="http://www.codeceo.com/article/browser-event.html" class="title" target="_blank">从 Chrome 源码看浏览器的事件机制</a>
-                        </span>
-                <ul class="list-inline">
-                    <li><i class="fa fa-link" title="codeceo.com"></i><a href="http://www.codeceo.com/article/browser-event.html" target="_blank">codeceo.com</a></li>
-                    <li>3小时前</li>
-                    <li><a href="http://geek.csdn.net/forum/47" data-target="">前端</a></li>
-                    <li class="read_num"><span>阅读数</span><em>1044</em></li>
+                <ul class="fly-list">
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="http://tp4.sinaimg.cn/1345566427/180/5730976522/0" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">基于Layui的轻量级问答社区页面模版</a>
+                            <span class="fly-tip-stick">置顶</span>
+                            <span class="fly-tip-jing">精帖</span>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">贤心</a></span>
+                            <span>刚刚</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 317
+              <i class="iconfont" title="人气">&#xe60b;</i> 6830
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/00.jpg" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html"> Layui 首个版本千呼万唤，终于滚出来了 </a>
+                            <span class="fly-tip-stick">置顶</span>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">纸飞机</a></span>
+                            <span>30分钟前</span>
+                            <span>技术闲谈</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 502
+              <i class="iconfont" title="人气">&#xe60b;</i> 81689
+            </span>
+                        </p>
+                    </li>
+
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
+                    <li class="fly-list-li">
+                        <a href="user/home.html" class="fly-list-avatar">
+                            <img src="../res/images/avatar/default.png" alt="">
+                        </a>
+                        <h2 class="fly-tip">
+                            <a href="jie/detail.html">关于layui 引用其他插件，扩展模块 的用法</a>
+                        </h2>
+                        <p>
+                            <span><a href="user/home.html">用户昵称</a></span>
+                            <span>1小时前</span>
+                            <span>layui框架综合</span>
+                            <span class="fly-list-hint"> 
+              <i class="iconfont" title="回答">&#xe60c;</i> 8
+              <i class="iconfont" title="人气">&#xe60b;</i> 106
+            </span>
+                        </p>
+                    </li>
                 </ul>
-            </dd>
 
-            <dt class="right">
-                                                    <!--<span class="tracking-ad" data-mod="popu_81">
-                <a href="" target="_blank">
-                    <i class="fa fa-comment"></i>
-                    <span class="count"></span>
-                </a>
-                </span>-->
-                <a href="http://geek.csdn.net/user/publishlist/zhangmingming22" target="_blank">
-                    <img src="http://avatar.csdn.net/6/6/B/2_zhangmingming22.jpg" class="avatar">
-                </a>
-            </dt>
-        </dl>
+                <div style="text-align: center">
+                    <div class="laypage-main">
+                        <a href="jie/index.html" class="laypage-next">更多求解</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="edge">
+
+
+            <h3 class="page-title">月度雷锋 - TOP 12</h3>
+            <div class="user-looklog leifeng-rank">
+                <span>
+        <a href="user/home.html">
+          <img src="../res/images/avatar/default.png">
+          <cite>纸飞机</cite>
+          <i>159次回答</i>
+        </a>
+        <a href="user/home.html">
+          <img src="../res/images/avatar/default.png">
+          <cite>纸飞机</cite>
+          <i>159次回答</i>
+        </a>
+        <a href="user/home.html">
+          <img src="../res/images/avatar/default.png">
+          <cite>纸飞机</cite>
+          <i>159次回答</i>
+        </a>
+        <a href="user/home.html">
+          <img src="../res/images/avatar/default.png">
+          <cite>纸飞机</cite>
+          <i>159次回答</i>
+        </a>
+        <a href="user/home.html">
+          <img src="../res/images/avatar/default.png">
+          <cite>纸飞机</cite>
+          <i>159次回答</i>
+        </a>
+        <a href="user/home.html">
+          <img src="../fly-master/res/images/avatar/default.png">
+          <cite>纸飞机</cite>
+          <i>159次回答</i>
+        </a>
+        <a href="user/home.html">
+          <img src="../fly-master/res/images/avatar/default.png">
+          <cite>纸飞机</cite>
+          <i>159次回答</i>
+        </a>
+        <a href="user/home.html">
+          <img src="../fly-master/res/images/avatar/default.png">
+          <cite>纸飞机</cite>
+          <i>159次回答</i>
+        </a>
+        <a href="user/home.html">
+          <img src="../fly-master/res/images/avatar/default.png">
+          <cite>纸飞机</cite>
+          <i>159次回答</i>
+        </a>
+        <a href="user/home.html">
+          <img src="../fly-master/res/images/avatar/default.png">
+          <cite>纸飞机</cite>
+          <i>159次回答</i>
+        </a>
+        <a href="user/home.html">
+          <img src="../fly-master/res/images/avatar/default.png">
+          <cite>纸飞机</cite>
+          <i>159次回答</i>
+        </a>
+        <a href="user/home.html">
+          <img src="../fly-master/res/images/avatar/default.png">
+          <cite>纸飞机</cite>
+          <i>159次回答</i>
+        </a>
+      </span>
+            </div>
+
+            <h3 class="page-title">最近热帖</h3>
+            <ol class="fly-list-one">
+                <li>
+                    <a href="jie/detail.html">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
+                    <span><i class="iconfont">&#xe60b;</i> 6087</span>
+                </li>
+                <li>
+                    <a href="jie/detail.html">Java实现LayIM后端的核心代码</a>
+                    <span><i class="iconfont">&#xe60b;</i> 767</span>
+                </li>
+                <li>
+                    <a href="jie/detail.html">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
+                    <span><i class="iconfont">&#xe60b;</i> 767</span>
+                </li>
+                <li>
+                    <a href="jie/detail.html">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
+                    <span><i class="iconfont">&#xe60b;</i> 767</span>
+                </li>
+                <li>
+                    <a href="jie/detail.html">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
+                    <span><i class="iconfont">&#xe60b;</i> 767</span>
+                </li>
+                <li>
+                    <a href="jie/detail.html">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
+                    <span><i class="iconfont">&#xe60b;</i> 767</span>
+                </li>
+                <li>
+                    <a href="jie/detail.html">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
+                    <span><i class="iconfont">&#xe60b;</i> 767</span>
+                </li>
+                <li>
+                    <a href="jie/detail.html">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
+                    <span><i class="iconfont">&#xe60b;</i> 767</span>
+                </li>
+            </ol>
+
+            <h3 class="page-title">近期热议</h3>
+            <ol class="fly-list-one">
+                <li>
+                    <a href="jie/detail.html">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
+                    <span><i class="iconfont">&#xe60c;</i> 96</span>
+                </li>
+                <li>
+                    <a href="jie/detail.html">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
+                    <span><i class="iconfont">&#xe60c;</i> 96</span>
+                </li>
+                <li>
+                    <a href="jie/detail.html">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
+                    <span><i class="iconfont">&#xe60c;</i> 96</span>
+                </li>
+                <li>
+                    <a href="jie/detail.html">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
+                    <span><i class="iconfont">&#xe60c;</i> 96</span>
+                </li>
+                <li>
+                    <a href="jie/detail.html">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
+                    <span><i class="iconfont">&#xe60c;</i> 96</span>
+                </li>
+                <li>
+                    <a href="jie/detail.html">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
+                    <span><i class="iconfont">&#xe60c;</i> 96</span>
+                </li>
+                <li>
+                    <a href="jie/detail.html">Java实现LayIM后端的核心代码</a>
+                    <span><i class="iconfont">&#xe60c;</i> 96</span>
+                </li>
+                <li>
+                    <a href="jie/detail.html">Java实现LayIM后端的核心代码</a>
+                    <span><i class="iconfont">&#xe60c;</i> 96</span>
+                </li>
+            </ol>
+
+            <div class="fly-link">
+                <span>友情链接：</span>
+                <a href="http://www.layui.com/" target="_blank">Layui</a>
+                <a href="http://layim.layui.com/" target="_blank">LayIM</a>
+                <a href="http://layer.layui.com/" target="_blank">layer</a>
+            </div>
+        </div>
     </div>
-</body>
-
-</html>
