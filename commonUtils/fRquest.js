@@ -20,7 +20,7 @@ var getRequest = function(path, callback) {
     callback = callback && typeof(callback) == "function" ? callback : function() {};
     var error = null;
     var httpResponse = null;
-    var body = null;
+    var body = "";
     if (!path) {
         error = new Error('The path is undefault or empty.');
         callback(error, httpResponse, body);
@@ -34,13 +34,20 @@ var getRequest = function(path, callback) {
     var request = http.request(option, function(res) {
         httpResponse = res;
         res.on('data', function(chunk) {
+            body += chunk;
+        });
+
+        res.on("end", function() {
             try {
-                body = eval('(' + chunk + ')');
+                if (body && body != "") {
+                    body = JSON.parse(body);
+                } else {
+                    body = null;
+                }
             } catch (er) {
-                body = chunk;
+                body = eval('(' + body + ')');
             }
             callback(this.error, httpResponse, body);
-            return;
         });
     });
     request.on('error', function(error) {
@@ -72,9 +79,16 @@ var postRequest = function(path, data, callback) {
     var request = http.request(option, function(res) {
         httpResponse = res;
         res.on('data', function(chunk) {
-            body = JSON.parse(chunk);
+            body += chunk;
+        });
+
+        res.on("end", function() {
+            try {
+                body = JSON.parse(body);
+            } catch (er) {
+                body = eval('(' + body + ')');
+            }
             callback(this.error, httpResponse, body);
-            return;
         });
     });
     request.on('error', function(error) {
