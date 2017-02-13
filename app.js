@@ -13,6 +13,8 @@ var app = express();
 //custormer middlewares
 var routes = require('./routes');
 var middlewares = require('./middlewares');
+var requirecrypto = require('./commonUtils/AESHelper');
+var aesHelper = new requirecrypto(config.session.key || "FreshMan");
 
 /**
  * session
@@ -41,6 +43,16 @@ app.use(express.static(path.join(__dirname, 'public')));
  */
 app.use(function(req, res, next) {
     res.locals.user = req.session.user || {};
+    if (req.cookies.userInfo) {
+        var userInfoCook = req.cookies.userInfo;
+        var userModel = JSON.parse(aesHelper.AesDeCoding(userInfoCook));
+        if (userModel && userModel.id > 0) {
+            res.locals.user = {
+                name: userModel.userName,
+                id: userModel.id
+            }
+        }
+    }
     var err = req.session.error;
     delete req.session.error;
     res.locals.message = "";

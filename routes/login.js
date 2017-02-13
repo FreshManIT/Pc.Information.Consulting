@@ -7,17 +7,6 @@ var aesHelper = new requirecrypto(config.session.key || "FreshMan");
 
 /* GET index page. */
 router.get('/', function(req, res, next) {
-    if (req.cookies.userInfo) { //到达/home路径首先判断是否已经登录
-        var userInfoCook = req.cookies.userInfo;
-        var userModel = JSON.parse(aesHelper.AesDeCoding(userInfoCook));
-        res.render("home", {
-            title: '信息咨询系统',
-            user: {
-                name: userModel.userName,
-                id: userModel.id
-            }
-        });
-    }
     res.render('home', { title: '信息咨询系统' });
 });
 
@@ -92,14 +81,18 @@ router.get("/home", function(req, res) {
             res.redirect("/login");
             return;
         }
-        res.render("home", {
-            title: '信息咨询系统',
-            user: {
-                name: userModel.userName,
-                id: userModel.id
-            }
-        });
     }
+    fRequest.getRequest(config.apiUrl + '/Question/SearchQustionInfo?pageSize=10', function(error, httpResponse, body) {
+        var questionData = [];
+        if (error || httpResponse.statusCode != 200 || !body || !body.data) {
+            req.session.error = "输入信息有误";
+        } else if (body.data.stateCode != "0000") {
+
+        }
+        res.render("home", {
+            title: '信息咨询系统'
+        });
+    });
 });
 
 /**
