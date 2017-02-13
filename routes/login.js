@@ -10,10 +10,6 @@ router.get('/', function(req, res, next) {
     res.render('home', { title: '信息咨询系统' });
 });
 
-router.get('/json', function(req, res, next) {
-    res.json({ f: "s", t: "title" });
-});
-
 /* GET login page. */
 router.route("/login").get(function(req, res) {
     res.render("login", { title: '用户登录' });
