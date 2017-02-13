@@ -85,10 +85,18 @@ router.get("/home", function(req, res) {
             res.redirect("/login");
             return;
         }
+    }
+    fRequest.getRequest(config.apiUrl + '/Question/SearchQustionInfo?pageSize=10', function(error, httpResponse, body) {
+        var questionData = [];
+        if (error || httpResponse.statusCode != 200 || !body || !body.data) {
+            req.session.error = "输入信息有误";
+        } else if (body.data.stateCode != "0000") {
+
+        }
         res.render("home", {
             title: '信息咨询系统'
         });
-    }
+    });
 });
 
 /**
