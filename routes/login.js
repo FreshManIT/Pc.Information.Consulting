@@ -7,7 +7,7 @@ var aesHelper = new requirecrypto(config.session.key || "FreshMan");
 
 /* GET index page. */
 router.get('/', function(req, res, next) {
-    res.render('home', { title: '信息咨询系统' });
+    res.redirect('/home');
 });
 
 /* GET login page. */
@@ -69,26 +69,14 @@ router.route("/register").get(function(req, res) {
  *  GET home page.
  *  */
 router.get("/home", function(req, res) {
-    if (!req.cookies.userInfo) { //到达/home路径首先判断是否已经登录
-        req.session.error = "请先登录"
-        res.redirect("/login"); //未登录则重定向到 /login 路径
-        return;
-    } else {
-        var userInfoCook = req.cookies.userInfo;
-        var userModel = JSON.parse(aesHelper.AesDeCoding(userInfoCook));
-        if (!userModel || userModel.id < 1) {
-            req.session.error = "请先登录"
-            res.redirect("/login");
-            return;
-        }
-    }
     fRequest.getRequest(config.apiUrl + '/Question/SearchQustionInfo?pageSize=10', function(error, httpResponse, body) {
         var questionData = [];
         if (error || httpResponse.statusCode != 200 || !body || !body.data) {
             req.session.error = "输入信息有误";
-        } else if (body.data.stateCode != "0000") {
-
+        } else {
+            questionData = body.data;
         }
+        res.locals.questionList = questionData;
         res.render("home", {
             title: '信息咨询系统'
         });

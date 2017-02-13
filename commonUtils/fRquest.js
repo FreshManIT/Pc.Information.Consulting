@@ -37,7 +37,7 @@ var getRequest = function(path, callback) {
             try {
                 body = eval('(' + chunk + ')');
             } catch (er) {
-                body = chunk.toString();
+                body = chunk;
             }
             callback(this.error, httpResponse, body);
             return;

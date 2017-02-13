@@ -41,9 +41,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /**
- * 处理异常，错�
+ * 处理异常，错��
  */
 app.use(function(req, res, next) {
+    res.locals.user = {};
     var userInfoCook = req.cookies.userInfo;
     if (req.cookies.userInfo) {
         var userInfoCook = req.cookies.userInfo;

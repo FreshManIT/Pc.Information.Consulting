@@ -12,23 +12,29 @@
 
 
                 <ul class="fly-list">
-                    <li class="fly-list-li">
-
-                        <h2 class="fly-tip">
-                            <a href="jie/detail.html">基于Layui的轻量级问答社区页面模版</a>
-                            <span class="fly-tip-stick">置顶</span>
-                            <span class="fly-tip-jing">精帖</span>
-                        </h2>
-                        <p>
-                            <span><a href="user/home.html">贤心</a></span>
-                            <span>刚刚</span>
-                            <span>layui框架综合</span>
-                            <span class="fly-list-hint"> 
-              <i class="iconfont" title="回答">&#xe60c;</i> 317
-              <i class="iconfont" title="人气">&#xe60b;</i> 6830
-            </span>
-                        </p>
-                    </li>
+                    <%
+                    if(typeof(questionList) != 'undefined'&& questionList && questionList.length>0){
+                        questionList.forEach(function(item,index){%>
+                        <li class="fly-list-li">
+                            <h2 class="fly-tip">
+                                <a href="/detail?id=<%=item.id%>">
+                                    <%=item.piFQuestionTitle%>
+                                </a>
+                                <span class="fly-tip-stick">置顶</span>
+                                <span class="fly-tip-jing">精帖</span>
+                            </h2>
+                            <p>
+                                <span>作者：<%=item.piFSendUserName%></span>
+                                <span>发布时间：<%=new Date(item.piFCreateTime).Format("yyyy-MM-dd hh:ss:mm")%></span>
+                                <span class="fly-list-hint"> 
+                                    <i class="iconfont" title="回答">&#xe60c;</i> 317
+                                    <i class="iconfont" title="人气">&#xe60b;</i> 6830        
+                                </span>
+                            </p>
+                        </li>
+                        <%});
+                    }
+                    %>
                 </ul>
                 <div style="text-align: center">
                     <div class="laypage-main">
