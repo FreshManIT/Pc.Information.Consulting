@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var config = require('../config/default');
 var fRequest = require('../commonUtils/fRquest');
+var middlewares = require('../middlewares');
 
 /**
  *  GET register page.
@@ -26,6 +27,29 @@ router.get("/", function(req, res) {
             });
         }
     });
+});
+
+/**
+ * Post reply data
+ */
+router.route("/reply").post(function(req, res) {
+    var loginUrer = middlewares.checkLogin(req);
+    if (!loginUrer || loginUrer.id < 1) {
+        res.json({ code: 0, message: "Please login." });
+        return;
+    }
+    var id = req.body.id;
+    var userId = loginUrer.id
+    var content = req.body.content;
+    if (!content || !(content.trim())) {
+        res.json({ code: 0, message: "Content info is null." });
+        return;
+    }
+    if (id < 1) {
+        res.json({ code: 0, message: "Please reload this page." });
+        return;
+    }
+    res.json({ code: 1, message: "Success." });
 });
 
 

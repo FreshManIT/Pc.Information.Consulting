@@ -97,14 +97,18 @@
                     </ul>
 
                     <div class="layui-form layui-form-pane">
-                        <form action="/jie/reply/" method="post">
+                        <form action="/detail/reply" method="post">
                             <div class="layui-form-item layui-form-text">
+                                <input type="hidden" name="id" id="id" value="<%=detailData.id%>" />
                                 <div class="layui-input-block">
-                                    <textarea id="L_content" name="content" required lay-verify="required" placeholder="我要回答'" class="layui-textarea fly-editor" style="height: 150px;"></textarea>
+                                    <% if(user && user.id>0){%>
+                                        <textarea id="L_content" name="content" required lay-verify="required" placeholder="我有话要说" class="layui-textarea fly-editor" style="height: 150px;"></textarea>
+                                        <%}else{%>
+                                            <textarea disabled="disabled" id="L_content" name="content" required lay-verify="required" placeholder="先登录再发表评论哦~" class="layui-textarea fly-editor" style="height: 150px;"></textarea>
+                                            <%}%>
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <input type="hidden" name="jid" value="{{rows.id}}">
                                 <button class="layui-btn" lay-filter="*" lay-submit>提交回答</button>
                             </div>
                         </form>
