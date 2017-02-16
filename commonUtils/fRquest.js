@@ -63,7 +63,7 @@ var postRequest = function(path, data, callback) {
     callback = callback && typeof(callback) == "function" ? callback : function() {};
     var error = null;
     var httpResponse = null;
-    var body = null;
+    var body = "";
     if (!path) {
         error = new Error('The path is undefault or empty.');
         callback(error, httpResponse, body);

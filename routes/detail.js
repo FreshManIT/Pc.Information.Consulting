@@ -49,7 +49,15 @@ router.route("/reply").post(function(req, res) {
         res.json({ code: 0, message: "Please reload this page." });
         return;
     }
-    res.json({ code: 1, message: "Success." });
+    var requestData = { questionId: id, userId: userId, content: content };
+    fRequest.postRequest(config.apiUrl + '/QuestionReply/AddQuestionReplyInfo', requestData, function(error, httpResponse, body) {
+        if (error || httpResponse.statusCode != 200 || !body || !body.data || body.data.stateCode != "0000") {
+            res.json({ code: 0, message: body.data.stateDesc || "Save data error." });
+            return;
+        } else {
+            res.json({ code: 1, message: "Success." });
+        }
+    });
 });
 
 
