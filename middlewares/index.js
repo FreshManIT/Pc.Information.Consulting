@@ -13,5 +13,10 @@ module.exports = {
     checkLogin: function(req) {
         var checkHandlerModule = require('./cookieMiddleWares/chekLogin');
         return checkHandlerModule(req);
+    },
+    //get question detail info.
+    getDetailInfoById: function(req, res) {
+        var getDetailInfoModule = require('./detailPageMiddleWares/detailPageServer');
+        getDetailInfoModule(req, res);
     }
 };

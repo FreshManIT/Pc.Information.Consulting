@@ -21,6 +21,7 @@
         <div class="main layui-clear">
             <div class="wrap">
                 <div class="content detail">
+                    <input type="hidden" id="hiddenQuestionId" value="<%=detailData.id%>" />
                     <h1>
                         <%=detailData.piFQuestionTitle%>
                     </h1>
@@ -35,7 +36,8 @@
                         <div class="fly-list-hint">
                             <i class="iconfont" title="回答">&#xe60c;</i>
                             <%=detailData.replyInfoList.length || 0%>
-                                <i class="iconfont" title="人气">&#xe60b;</i> 98032
+                                <i class="iconfont" title="人气">&#xe60b;</i>
+                                <%=detailData.viewCount%>
                         </div>
                     </div>
                     <div class="detail-body photos" style="margin-bottom: 20px;">
@@ -190,6 +192,17 @@
                     fly: 'index'
                 }).use('fly', function() {
                     var fly = layui.fly;
+                });
+            </script>
+            <script>
+                $(function() {
+                    var questionId = $("#hiddenQuestionId").val();
+                    $.ajax({
+                        url: '/detail/viewInfo?questionId=' + questionId,
+                        type: 'post',
+                        success: function(data, status) {},
+                        error: function(data, status) {}
+                    });
                 });
             </script>
 </body>

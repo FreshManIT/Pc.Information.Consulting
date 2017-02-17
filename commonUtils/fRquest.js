@@ -84,7 +84,11 @@ var postRequest = function(path, data, callback) {
 
         res.on("end", function() {
             try {
-                body = JSON.parse(body);
+                if (body && body != "") {
+                    body = JSON.parse(body);
+                } else {
+                    body = null;
+                }
             } catch (er) {
                 body = eval('(' + body + ')');
             }

@@ -21,7 +21,7 @@ router.route("/login").get(function(req, res) {
         res.send(404);
         return;
     }
-    password = aesHelper.AesEnCoding(password);
+    // password = aesHelper.AesEnCoding(password);
     fRequest.getRequest(config.apiUrl + '/LoginUser/Login?userName=' + uname + '&password=' + password, function(error, httpResponse, body) {
         if (error || httpResponse.statusCode != 200 || !body || !body.data) {
             req.session.error = "用户名或密码错误";
@@ -50,7 +50,7 @@ router.route("/register").get(function(req, res) {
         res.send(404);
         return;
     }
-    password = aesHelper.AesEnCoding(password);
+    // password = aesHelper.AesEnCoding(password);
     fRequest.getRequest(config.apiUrl + '/LoginUser/RegisterUser?userName={0}&password={1}&emailAddress={2}&birthday=1900-01-01'.Format(uname, password, emailAddress), function(error, httpResponse, body) {
         if (error || httpResponse.statusCode != 200 || !body || !body.data) {
             req.session.error = "输入信息有误";
