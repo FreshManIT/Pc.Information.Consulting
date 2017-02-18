@@ -64,6 +64,20 @@ router.route("/reply").post(function(req, res) {
 });
 
 /**
+ * get hot reply question info.
+ */
+router.get("/getHotReplyInfo", function(req, res) {
+    middlewares.getHotReplyQuestionInfo(req, res);
+});
+
+/**
+ * get top view number question info.
+ */
+router.get("/getTopViewQuestionInfo", function(req, res) {
+    middlewares.getTopViewQuestionInfo(req, res);
+});
+
+/**
  * Add view visit history.
  */
 router.route("/viewInfo").post(function(req, res) {
@@ -77,7 +91,7 @@ router.route("/viewInfo").post(function(req, res) {
     var requestData = { questionId: questionId, userId: userId };
     fRequest.postRequest(config.apiUrl + '/Question/AddQuestionViewCount', requestData, function(error, httpResponse, body) {
         if (error || httpResponse.statusCode != 200 || !body || !body.data || body.data.stateCode != "0000") {
-            res.json({ code: 0, message: body.data.stateDesc || "Save data error." });
+            res.json({ code: 0, message: "Save data error." });
             return;
         } else {
             res.json({ code: 1, message: "Success." });

@@ -1,53 +1,68 @@
-<% layout('layout') -%>
-    <div class="main layui-clear">
-        <div class="wrap">
-            <div class="content">
-                <div class="fly-tab">
-                    <form action="http://cn.bing.com/search" class="fly-search" style="width:84%; margin-left: 0px;">
-                        <i class="iconfont icon-sousuo"></i>
-                        <input class="layui-input" autocomplete="off" placeholder="搜索内容，回车跳转" type="text" name="q">
-                    </form>
-                    <a href="/chat" class="layui-btn jie-add">在线咨询</a>
-                </div>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        <%=title%>
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="fly,layui,FreshMan Chat">
+    <meta name="description" content="<%=title%>">
+    <link rel="stylesheet" href="../fly-master/res/layui/css/layui.css">
+    <link rel="stylesheet" href="../fly-master/res/css/global.css">
+</head>
+
+<body>
+    <%include head.html%>
+        <div class="main layui-clear">
+            <div class="wrap">
+                <div class="content">
+                    <div class="fly-tab">
+                        <form action="http://cn.bing.com/search" class="fly-search" style="width:84%; margin-left: 0px;">
+                            <i class="iconfont icon-sousuo"></i>
+                            <input class="layui-input" autocomplete="off" placeholder="搜索内容，回车跳转" type="text" name="q">
+                        </form>
+                        <a href="/chat" class="layui-btn jie-add">在线咨询</a>
+                    </div>
 
 
-                <ul class="fly-list">
-                    <%
+                    <ul class="fly-list" id="showSearchData">
+                        <%
                     if(typeof(questionList) != 'undefined'&& questionList && questionList.length>0){
                         questionList.forEach(function(item,index){%>
-                        <li class="fly-list-li">
-                            <h2 class="fly-tip">
-                                <a href="/detail?id=<%=item.id%>">
-                                    <%=item.piFQuestionTitle%>
-                                </a>
-                                <span class="fly-tip-stick">置顶</span>
-                                <span class="fly-tip-jing">精帖</span>
-                            </h2>
-                            <p>
-                                <span>作者：<%=item.piFSendUserName%></span>
-                                <span>发布时间：<%=new Date(item.piFCreateTime).Format("yyyy-MM-dd hh:ss:mm")%></span>
-                                <span class="fly-list-hint"> 
-                                    <i class="iconfont" title="回答">&#xe60c;</i> <%=item.countNumber%>
+                            <li class="fly-list-li">
+                                <h2 class="fly-tip">
+                                    <a href="/detail?id=<%=item.id%>">
+                                        <%=item.piFQuestionTitle%>
+                                    </a>
+                                    <span class="fly-tip-stick">置顶</span>
+                                    <span class="fly-tip-jing">精帖</span>
+                                </h2>
+                                <p>
+                                    <span>作者：<%=item.piFSendUserName%></span>
+                                    <span>发布时间：<%=new Date(item.piFCreateTime).Format("yyyy-MM-dd hh:ss:mm")%></span>
+                                    <span class="fly-list-hint">
                                     <i class="iconfont" title="人气">&#xe60b;</i> <%=item.viewCount%>        
                                 </span>
-                            </p>
-                        </li>
-                        <%});
+                                </p>
+                            </li>
+                            <%});
                     }
                     %>
-                </ul>
-                <div style="text-align: center">
-                    <div class="laypage-main">
-                        <a href="jie/index.html" class="laypage-next">更多求解</a>
+                    </ul>
+                    <div style="text-align: center">
+                        <div class="laypage-main">
+                            <a href="jie/index.html" class="laypage-next">更多求解</a>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
-        </div>
-        <div class="edge">
-            <h3 class="page-title">月度雷锋 - TOP 12</h3>
-            <div class="user-looklog leifeng-rank">
-                <span>
+            <div class="edge">
+                <h3 class="page-title">月度雷锋 - TOP 12</h3>
+                <div class="user-looklog leifeng-rank">
+                    <span>
         <a href="user/home.html">
           <img src="../res/images/avatar/default.png">
           <cite>纸飞机</cite>
@@ -109,78 +124,22 @@
           <i>159次回答</i>
         </a>
       </span>
+                </div>
+
+                <h3 class="page-title">最近热帖</h3>
+                <ol class="fly-list-one" id="topViewQuestionList">
+
+                </ol>
+
+                <h3 class="page-title">近期热议</h3>
+                <ol class="fly-list-one" id="hotQuestionList">
+
+                </ol>
             </div>
-
-            <h3 class="page-title">最近热帖</h3>
-            <ol class="fly-list-one">
-                <li>
-                    <a href="jie/detail.html">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
-                    <span><i class="iconfont">&#xe60b;</i> 6087</span>
-                </li>
-                <li>
-                    <a href="jie/detail.html">Java实现LayIM后端的核心代码</a>
-                    <span><i class="iconfont">&#xe60b;</i> 767</span>
-                </li>
-                <li>
-                    <a href="jie/detail.html">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
-                    <span><i class="iconfont">&#xe60b;</i> 767</span>
-                </li>
-                <li>
-                    <a href="jie/detail.html">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
-                    <span><i class="iconfont">&#xe60b;</i> 767</span>
-                </li>
-                <li>
-                    <a href="jie/detail.html">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
-                    <span><i class="iconfont">&#xe60b;</i> 767</span>
-                </li>
-                <li>
-                    <a href="jie/detail.html">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
-                    <span><i class="iconfont">&#xe60b;</i> 767</span>
-                </li>
-                <li>
-                    <a href="jie/detail.html">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
-                    <span><i class="iconfont">&#xe60b;</i> 767</span>
-                </li>
-                <li>
-                    <a href="jie/detail.html">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
-                    <span><i class="iconfont">&#xe60b;</i> 767</span>
-                </li>
-            </ol>
-
-            <h3 class="page-title">近期热议</h3>
-            <ol class="fly-list-one">
-                <li>
-                    <a href="jie/detail.html">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
-                    <span><i class="iconfont">&#xe60c;</i> 96</span>
-                </li>
-                <li>
-                    <a href="jie/detail.html">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
-                    <span><i class="iconfont">&#xe60c;</i> 96</span>
-                </li>
-                <li>
-                    <a href="jie/detail.html">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
-                    <span><i class="iconfont">&#xe60c;</i> 96</span>
-                </li>
-                <li>
-                    <a href="jie/detail.html">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
-                    <span><i class="iconfont">&#xe60c;</i> 96</span>
-                </li>
-                <li>
-                    <a href="jie/detail.html">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
-                    <span><i class="iconfont">&#xe60c;</i> 96</span>
-                </li>
-                <li>
-                    <a href="jie/detail.html">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
-                    <span><i class="iconfont">&#xe60c;</i> 96</span>
-                </li>
-                <li>
-                    <a href="jie/detail.html">Java实现LayIM后端的核心代码</a>
-                    <span><i class="iconfont">&#xe60c;</i> 96</span>
-                </li>
-                <li>
-                    <a href="jie/detail.html">Java实现LayIM后端的核心代码</a>
-                    <span><i class="iconfont">&#xe60c;</i> 96</span>
-                </li>
-            </ol>
         </div>
-    </div>
+        <%include footer.html%>
+
+            <script src="../home/homePage.js"></script>
+</body>
+
+</html>

@@ -51,4 +51,24 @@ var getHotReplyQuestionInfo = function(req, res) {
         });
 };
 
-module.exports = getDetailInfo;
+/**
+ * Get top view number of question
+ */
+var getTopViewQuestionInfo = function(req, res) {
+    var topViewData = {};
+    options.url = config.apiUrl + '/Question/GetHotViewQuestionInfo';
+    rp(options)
+        .then(function(questionData) {
+            topViewData = questionData;
+            res.json(topViewData);
+        })
+        .catch(function(err) {
+            res.json(topViewData);
+        });
+}
+
+module.exports = {
+    getDetailInfo: getDetailInfo,
+    getHotReplyQuestionInfo: getHotReplyQuestionInfo,
+    getTopViewQuestionInfo: getTopViewQuestionInfo
+};

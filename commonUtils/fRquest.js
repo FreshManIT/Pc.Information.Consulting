@@ -45,7 +45,11 @@ var getRequest = function(path, callback) {
                     body = null;
                 }
             } catch (er) {
-                body = eval('(' + body + ')');
+                try {
+                    body = eval('(' + body + ')');
+                } catch (er) {
+                    body = null;
+                }
             }
             callback(this.error, httpResponse, body);
         });
@@ -90,7 +94,11 @@ var postRequest = function(path, data, callback) {
                     body = null;
                 }
             } catch (er) {
-                body = eval('(' + body + ')');
+                try {
+                    body = eval('(' + body + ')');
+                } catch (er) {
+                    body = null;
+                }
             }
             callback(this.error, httpResponse, body);
         });

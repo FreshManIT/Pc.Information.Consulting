@@ -68,7 +68,7 @@ router.route("/register").get(function(req, res) {
 /**
  *  GET home page.
  *  */
-router.get("/home", function(req, res) {
+router.route("/home").get(function(req, res) {
     fRequest.getRequest(config.apiUrl + '/Question/SearchQustionInfo?pageSize=10', function(error, httpResponse, body) {
         var questionData = [];
         if (error || httpResponse.statusCode != 200 || !body || !body.data) {
@@ -80,6 +80,21 @@ router.get("/home", function(req, res) {
         res.render("home", {
             title: '信息咨询系统'
         });
+    });
+}).post(function(req, res) {
+    var title = req.body.title;
+    if (!title || title == "") {
+        res.json({ code: 0, data: [] });
+        return;
+    }
+    fRequest.getRequest(config.apiUrl + '/Question/SearchQustionInfo?title=' + decodeURI(title), function(error, httpResponse, body) {
+        var questionData = [];
+        if (error || httpResponse.statusCode != 200 || !body || !body.data) {
+            req.session.error = "输入信息有误";
+        } else {
+            questionData = body.data;
+        }
+        res.json({ code: 1, data: questionData });
     });
 });
 

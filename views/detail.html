@@ -102,75 +102,13 @@
             <div class="edge">
 
                 <h3 class="page-title">最近热帖</h3>
-                <ol class="fly-list-one">
-                    <li>
-                        <a href=" ">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
-                        <span><i class="iconfont">&#xe60b;</i> 6087</span>
-                    </li>
-                    <li>
-                        <a href=" ">Java实现LayIM后端的核心代码</a>
-                        <span><i class="iconfont">&#xe60b;</i> 767</span>
-                    </li>
-                    <li>
-                        <a href=" ">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
-                        <span><i class="iconfont">&#xe60b;</i> 767</span>
-                    </li>
-                    <li>
-                        <a href=" ">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
-                        <span><i class="iconfont">&#xe60b;</i> 767</span>
-                    </li>
-                    <li>
-                        <a href=" ">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
-                        <span><i class="iconfont">&#xe60b;</i> 767</span>
-                    </li>
-                    <li>
-                        <a href=" ">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
-                        <span><i class="iconfont">&#xe60b;</i> 767</span>
-                    </li>
-                    <li>
-                        <a href=" ">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
-                        <span><i class="iconfont">&#xe60b;</i> 767</span>
-                    </li>
-                    <li>
-                        <a href=" ">Layui 官网 在线演示页面 全面增加 查看代码 功能</a>
-                        <span><i class="iconfont">&#xe60b;</i> 767</span>
-                    </li>
+                <ol class="fly-list-one" id="topViewQuestionList">
+
                 </ol>
 
                 <h3 class="page-title">近期热议</h3>
-                <ol class="fly-list-one">
-                    <li>
-                        <a href=" ">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
-                        <span><i class="iconfont">&#xe60c;</i> 96</span>
-                    </li>
-                    <li>
-                        <a href=" ">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
-                        <span><i class="iconfont">&#xe60c;</i> 96</span>
-                    </li>
-                    <li>
-                        <a href=" ">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
-                        <span><i class="iconfont">&#xe60c;</i> 96</span>
-                    </li>
-                    <li>
-                        <a href=" ">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
-                        <span><i class="iconfont">&#xe60c;</i> 96</span>
-                    </li>
-                    <li>
-                        <a href=" ">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
-                        <span><i class="iconfont">&#xe60c;</i> 96</span>
-                    </li>
-                    <li>
-                        <a href=" ">盛赞！大赞狂赞！Layui完美兼容Vue.js</a>
-                        <span><i class="iconfont">&#xe60c;</i> 96</span>
-                    </li>
-                    <li>
-                        <a href=" ">Java实现LayIM后端的核心代码</a>
-                        <span><i class="iconfont">&#xe60c;</i> 96</span>
-                    </li>
-                    <li>
-                        <a href=" ">Java实现LayIM后端的核心代码</a>
-                        <span><i class="iconfont">&#xe60c;</i> 96</span>
-                    </li>
+                <ol class="fly-list-one" id="hotQuestionList">
+
                 </ol>
 
             </div>
@@ -194,16 +132,9 @@
                     var fly = layui.fly;
                 });
             </script>
+            <script src="../detail/detailQuestion.js"></script>
             <script>
-                $(function() {
-                    var questionId = $("#hiddenQuestionId").val();
-                    $.ajax({
-                        url: '/detail/viewInfo?questionId=' + questionId,
-                        type: 'post',
-                        success: function(data, status) {},
-                        error: function(data, status) {}
-                    });
-                });
+                addViewCountData();
             </script>
 </body>
 

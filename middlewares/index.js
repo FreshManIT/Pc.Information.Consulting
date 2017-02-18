@@ -17,6 +17,16 @@ module.exports = {
     //get question detail info.
     getDetailInfoById: function(req, res) {
         var getDetailInfoModule = require('./detailPageMiddleWares/detailPageServer');
-        getDetailInfoModule(req, res);
+        getDetailInfoModule.getDetailInfo(req, res);
+    },
+    //get hot reply question detail info.
+    getHotReplyQuestionInfo: function(req, res) {
+        var getDetailInfoModule = require('./detailPageMiddleWares/detailPageServer');
+        getDetailInfoModule.getHotReplyQuestionInfo(req, res);
+    },
+    //get top view question detail info.
+    getTopViewQuestionInfo: function(req, res) {
+        var getDetailInfoModule = require('./detailPageMiddleWares/detailPageServer');
+        getDetailInfoModule.getTopViewQuestionInfo(req, res);
     }
 };
