@@ -4,6 +4,7 @@ var config = require('../config/default');
 var fRequest = require('../commonUtils/fRquest');
 var requirecrypto = require('../commonUtils/AESHelper');
 var aesHelper = new requirecrypto(config.session.key || "FreshMan");
+var querystring = require('querystring');
 
 /* GET index page. */
 router.get('/', function(req, res, next) {
@@ -69,7 +70,9 @@ router.route("/register").get(function(req, res) {
  *  GET home page.
  *  */
 router.route("/home").get(function(req, res) {
-    fRequest.getRequest(config.apiUrl + '/Question/SearchQustionInfo?pageSize=10', function(error, httpResponse, body) {
+    var title = req.query.q;
+    var titleParam = querystring.stringify({ title: title }, null, null);
+    fRequest.getRequest(config.apiUrl + '/Question/SearchQustionInfo?pageSize=10&' + titleParam, function(error, httpResponse, body) {
         var questionData = [];
         if (error || httpResponse.statusCode != 200 || !body || !body.data) {
             req.session.error = "输入信息有误";
@@ -87,10 +90,48 @@ router.route("/home").get(function(req, res) {
         res.json({ code: 0, data: [] });
         return;
     }
-    fRequest.getRequest(config.apiUrl + '/Question/SearchQustionInfo?title=' + decodeURI(title), function(error, httpResponse, body) {
+    var titleParam = querystring.stringify({ title: title }, null, null);
+    fRequest.getRequest(config.apiUrl + '/Question/SearchQustionInfo?' + titleParam, function(error, httpResponse, body) {
         var questionData = [];
         if (error || httpResponse.statusCode != 200 || !body || !body.data) {
             req.session.error = "输入信息有误";
+        } else {
+            questionData = body.data;
+        }
+        res.json({ code: 1, data: questionData });
+    });
+});
+
+/**
+ * get more search question.
+ */
+router.route("/home/more").get(function(req, res) {
+    var pageIndex = req.query.pageIndex;
+    if (!pageIndex || pageIndex < 1) {
+        res.json({ data: questionData, code: 1 });
+        return;
+    }
+    fRequest.getRequest(config.apiUrl + '/Question/SearchQustionInfo?pageSize=10&pageIndex=' + pageIndex, function(error, httpResponse, body) {
+        var questionData = [];
+        if (error || httpResponse.statusCode != 200 || !body || !body.data) {
+            res.json({ data: questionData, code: 0 });
+            return;
+        } else {
+            questionData = body.data;
+        }
+        res.json({ data: questionData, code: 1 });
+    });
+})
+
+/**
+ * get hot user list
+ */
+router.route("/home/gethotuserlist").get(function(req, res) {
+    fRequest.getRequest(config.apiUrl + '/LoginUser/GetHotUserInfoList', function(error, httpResponse, body) {
+        var questionData = [];
+        if (error || httpResponse.statusCode != 200 || !body || !body.data) {
+            res.json({ code: 0, data: questionData });
+            return;
         } else {
             questionData = body.data;
         }
