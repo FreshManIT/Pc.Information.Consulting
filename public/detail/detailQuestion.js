@@ -18,6 +18,7 @@ var getTopViewQuestionInfo = function() {
         error: function(err) {}
     });
 };
+
 var getHotReplyQuestionInfo = function() {
     $.ajax({
         url: '/detail/getHotReplyInfo',
@@ -38,6 +39,7 @@ var getHotReplyQuestionInfo = function() {
         error: function(err) {}
     });
 };
+
 var addViewCountData = function() {
     var questionId = $("#hiddenQuestionId").val();
     $.ajax({
@@ -47,6 +49,25 @@ var addViewCountData = function() {
         error: function(data, status) {}
     });
 };
+
+var praisedreply = function(replyId) {
+    $.ajax({
+        url: "/detail/praisedreply",
+        type: "post",
+        data: { replyId: replyId },
+        success: function(data, status) {
+            if (!data) return;
+            if (data.code != 1) {
+                layer.msg(data.message, { icon: 5 });
+            } else {
+                layer.msg(data.message, { icon: 6 });
+                $(".zan" + replyId).addClass("zanok");
+            }
+        },
+        error: function(err) {}
+    });
+};
+
 $(function() {
     getHotReplyQuestionInfo();
     getTopViewQuestionInfo();

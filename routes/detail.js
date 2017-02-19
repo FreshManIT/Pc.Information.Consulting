@@ -64,6 +64,32 @@ router.route("/reply").post(function(req, res) {
 });
 
 /**
+ * praised reply info
+ */
+router.route("/praisedreply").post(function(req, res) {
+    var loginUrer = middlewares.checkLogin(req);
+    if (!loginUrer || loginUrer.id < 1) {
+        res.json({ code: 0, message: "Please login." });
+        return;
+    }
+    var replyId = req.body.replyId;
+    var userId = loginUrer.id
+    if (!replyId || replyId < 1) {
+        res.json({ code: 0, message: "Please choose praised reply id." });
+        return;
+    }
+    var requestData = { replyId: replyId, userId: userId };
+    fRequest.postRequest(config.apiUrl + '/QuestionReply/AddReplyPraised', requestData, function(error, httpResponse, body) {
+        if (error || httpResponse.statusCode != 200 || !body || !body.data || body.data.stateCode != "1") {
+            res.json({ code: 0, message: body.data.stateDesc || "Save data error." });
+            return;
+        } else {
+            res.json({ code: 1, message: "Success." });
+        }
+    });
+});
+
+/**
  * get hot reply question info.
  */
 router.get("/getHotReplyInfo", function(req, res) {
