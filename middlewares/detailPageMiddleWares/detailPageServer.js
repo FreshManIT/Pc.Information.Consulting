@@ -1,6 +1,7 @@
 var config = require('../../config/default');
 var fRequest = require('../../commonUtils/fRquest');
 var rp = require('request-promise');
+var middlewares = require('../../middlewares');
 
 var options = {
     method: 'POST',
@@ -13,6 +14,11 @@ var options = {
  * Get question detail
  */
 var getDetailInfo = function(req, res) {
+    var loginUrer = middlewares.checkLogin(req);
+    var userId = 0;
+    if (loginUrer && loginUrer.id > 0) {
+        userId = loginUrer.id;
+    }
     var detailData = {};
     if (!req.query || !req.query.id || req.query.id < 1) {
         res.redirect("/home");
@@ -20,7 +26,7 @@ var getDetailInfo = function(req, res) {
     }
     var questionId = req.query.id;
 
-    options.url = config.apiUrl + '/Question/SearchQustionInfo?pageSize=10&id=' + questionId;
+    options.url = config.apiUrl + '/Question/SearchQustionInfo?pageSize=10&id=' + questionId + '&userId=' + userId;
     rp(options)
         .then(function(questionData) {
             detailData = questionData.data[0];
