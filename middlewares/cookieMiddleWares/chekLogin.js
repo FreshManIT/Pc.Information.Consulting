@@ -10,7 +10,8 @@ var checkLoginUserInfo = function(req) {
         if (userModel && userModel.id > 0) {
             loginInfo = {
                 name: userModel.userName,
-                id: userModel.id
+                id: userModel.id,
+                rule: userModel.rule
             }
         }
     }

@@ -36,3 +36,46 @@ dom.mine.find('a').on('click', function() {
     }
 });
 dom.mine[0] && showTable(0, location.hash.replace(/^#/, ''));
+
+/**
+ * 更新用户信息
+ */
+var updatauserInfo = function() {
+    var email = $("#L_email").val();
+    if (email != "" && !IsEmailAddress(email)) {
+        layer.msg('电子邮箱格式不正确', { time: 3000, icon: 5 });
+        return false;
+    }
+    var sex = $("#hiddenSex").val();
+    var job = $("#hiddenJob").val();
+    var birthday = $("#hiddenbirthday").val();
+    var password = $("#hiddenUpdataPassword").val();
+    if (!sex || !job || job == "" || !birthday || birthday == "" || !password || password == "") {
+        layer.msg('必填项必填', { time: 3000, icon: 5 });
+        return false;
+    }
+    var data = { email: email, sex: sex, job: job, birthday: birthday, password: password };
+    $.ajax({
+        url: "/set/updatauserInfo",
+        type: "post",
+        data: data,
+        success: function(data, status) {
+            if (!data) {
+                layer.msg("保存失败", { icon: 5 });
+                return false;
+            }
+            if (data.code == 1) {
+                layer.msg("修改成功", { icon: 6 });
+                return false;
+            } else {
+                layer.msg(data.msg, { icon: 5 });
+                return false;
+            }
+        },
+        error: function(err) {
+            layer.msg("修改失败", { icon: 5 });
+            return false;
+        }
+    });
+    return false;
+};

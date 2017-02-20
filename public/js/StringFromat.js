@@ -21,3 +21,15 @@ Date.prototype.Format = function(fmt) {
         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 }
+
+//选择切换函数
+function SetCheckWayID(fui, obj) {
+    $(fui).val($(obj).val());
+}
+
+/**
+ * Check data is email address.
+ */
+function IsEmailAddress(emailAddress) {
+    return /^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$/i.test(emailAddress);
+}
