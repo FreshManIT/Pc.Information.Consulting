@@ -69,7 +69,7 @@ var getMoreQuestionInfo = function() {
             pageIndex = pageIndex + 1;
             $("#hiddentPageIndex").val();
             if (!hotQuestionList || hotQuestionList.length < 10) {
-                $(".laypage-next").html("别點了，到头了~");
+                $(".laypage-next").html("别点了，底都给你啦~");
             }
         },
         error: function(err) {}
