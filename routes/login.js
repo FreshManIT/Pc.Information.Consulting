@@ -29,8 +29,8 @@ router.route("/login").get(function(req, res) {
             res.send(404);
             return;
         }
-        //TODO data check.
-        var user = { userName: uname, id: body.data.id };
+        //TODO data check.rule:0:common user;1:server provider;2:administrator
+        var user = { userName: uname, id: body.data.id, rule: body.data.piFRule };
         var userCook = aesHelper.AesEnCoding(JSON.stringify(user));
         res.cookie('userInfo', userCook, { maxAge: 1000 * 60 * 60 * 24 });
         res.redirect('/home');

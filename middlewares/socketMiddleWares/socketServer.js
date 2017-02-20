@@ -5,45 +5,70 @@ module.exports = function(http) {
     var userServer = {};
     var userList = {};
     var freeList = [];
-    var allUserList = GetUserList(0);
+    var freeServerList = [];
     var onlineCount = 0;
-    var count = 0;
     io.on('connection', function(socket) {
-        count += 1;
         socket.on('newUser', function(data) {
-            var nickname = data.user_name,
-                user_id = data.user_id;
+            var user_nickname = data.user_name,
+                user_id = data.user_id,
+                user_rule = data.user_rule;
+            //user id
             socket.id = user_id;
+            socket.rule = user_rule;
+            //user socket object
             userServer[user_id] = socket;
-            userList[user_id] = nickname;
-            freeList.push(user_id);
-            onlineCount = AddNewUser(user_id, nickname, 1);
-            io.emit('onlineCount', freeList);
-            io.emit('addCount', count);
-            if (freeList.length > 1) {
-                var from = user_id;
-                Arrayremove(freeList, from);
-                if (freeList.length == 1) {
-                    n = 0;
-                } else {
-                    n = Math.floor(Math.random() * freeList.length);
-                }
-                var to = freeList[n]
-                Arrayremove(freeList, to)
-                io.emit("getChat", { p1: from, p2: to }, userList)
+            //online user name
+            userList[user_id] = user_nickname;
+            //add new online user id to freeList
+            if (user_rule == 0) {
+                freeList.push(user_id);
+            } else {
+                freeServerList.push(user_id);
             }
-        })
-        socket.on('disconnect', function() { //用户注销登陆执行内容
-            count -= 1;
-            var id = socket.id
-            ReMoveUser(userServer[id].id || 0, userList[id], 1);
-            Arrayremove(freeList, id)
-            delete userServer[id]
-            delete userList[id]
-            io.emit('onlineCount', freeList)
-            io.emit('offline', { id: id })
-            io.emit('addCount', count)
-        })
+            AddNewUser(user_id, user_nickname, user_rule);
+            //广播在线空闲用户id
+            io.emit('onlineCount', { freeList: freeList, freeServerList: freeServerList });
+            //广播在线人数
+            io.emit('addCount', { freeListCount: freeList.length, freeServerListCount: freeServerList.length });
+            if (user_rule == 0) {
+                if (freeServerList.length > 0) {
+                    var from = user_id;
+                    //重置自身状态为非空闲
+                    Arrayremove(freeList, from);
+                    //筛选一个服务者用户进行咨询
+                    if (freeServerList.length == 1) {
+                        n = 0;
+                    } else {
+                        n = Math.floor(Math.random() * freeServerList.length);
+                    }
+                    var to = freeServerList[n];
+                    //重置已选用户状态为非空闲态
+                    Arrayremove(freeServerList, to);
+                    //发送消息配对成功
+                    io.emit("getChat", { p1: from, p2: to }, userList);
+                    //广播在线空闲用户id
+                    io.emit('onlineCount', { freeList: freeList, freeServerList: freeServerList });
+                    //广播在线人数
+                    io.emit('addCount', { freeListCount: freeList.length, freeServerListCount: freeServerList.length });
+                }
+            }
+        });
+        //用户注销登陆执行内容
+        socket.on('disconnect', function() {
+            var id = socket.id;
+            var rule = socket.rule;
+            ReMoveUser(id || 0, userList[id], rule);
+            if (rule == 0) {
+                Arrayremove(freeList, id);
+            } else {
+                Arrayremove(freeServerList, id);
+            }
+            delete userServer[id];
+            delete userList[id];
+            io.emit('onlineCount', { freeList: freeList, freeServerList: freeServerList });
+            io.emit('offline', { id: id });
+            io.emit('addCount', { freeListCount: freeList.length, freeServerListCount: freeServerList.length });
+        });
         socket.on('message', function(data) {
             if (userServer.hasOwnProperty(data.to)) {
                 userServer[data.to].emit('getMsg', { msg: data.msg });

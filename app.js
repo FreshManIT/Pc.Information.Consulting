@@ -41,7 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /**
- * 处理异常，错��
+ * deal error and get login user model.
  */
 app.use(function(req, res, next) {
     res.locals.user = {};
@@ -52,7 +52,8 @@ app.use(function(req, res, next) {
         if (userModel && userModel.id > 0) {
             res.locals.user = {
                 name: userModel.userName,
-                id: userModel.id
+                id: userModel.id,
+                rule: userModel.rule
             }
         }
     }
