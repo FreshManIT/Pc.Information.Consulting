@@ -131,7 +131,6 @@ module.exports = function(http) {
             if (error || httpResponse.statusCode != 200 || !body || !body.data) {
                 //Add new user into redis error .
             }
-            onlineCount = body.data;
         });
     }
 
@@ -143,7 +142,6 @@ module.exports = function(http) {
             if (error || httpResponse.statusCode != 200 || !body || !body.data) {
                 //Add new user into redis error .
             }
-            onlineCount = body.data;
         });
     }
 }

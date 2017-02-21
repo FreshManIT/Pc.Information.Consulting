@@ -64,4 +64,60 @@ router.route("/updatauserInfo").post(function(req, res) {
         }
     });
 });
+
+/**
+ * update user password
+ */
+router.route("/updatauserPassword").post(function(req, res) {
+    var loginUrer = middlewares.checkLogin(req);
+    if (!loginUrer || loginUrer.id < 1) {
+        res.json({ code: 0, msg: "请先登录" });
+        return;
+    }
+    var oldPassword = req.body.oldPassword;
+    var newPassword = req.body.newPassword;
+    var userId = loginUrer.id;
+    if (!oldPassword || !newPassword || oldPassword == "" || newPassword == "" || newPassword == oldPassword) {
+        res.json({ code: 0, msg: "新旧密码不满足要求" });
+        return;
+    }
+    var data = {
+        userId: userId,
+        oldPassword: oldPassword,
+        newPassword: newPassword
+    };
+    fRequest.postRequest(config.apiUrl + '/LoginUser/UpdateUserPassword', data, function(error, httpResponse, body) {
+        if (error || httpResponse.statusCode != 200 || !body || !body.data || body.data.id < 1) {
+            res.json({ code: 0, msg: "更新失败" });
+            return;
+        } else {
+            res.json({ code: 1, msg: "保存成功" });
+            return;
+        }
+    });
+});
+
+/**
+ * send activation email
+ */
+router.route("/sendactivationEmail").post(function(req, res) {
+    var loginUrer = middlewares.checkLogin(req);
+    if (!loginUrer || loginUrer.id < 1) {
+        res.json({ code: 0, msg: "请先登录" });
+        return;
+    }
+    var userId = loginUrer.id;
+    var data = {
+        userId: userId
+    };
+    fRequest.postRequest(config.apiUrl + '/LoginUser/SendActivationEmail', data, function(error, httpResponse, body) {
+        if (error || httpResponse.statusCode != 200 || !body || !body.data || body.data.stateCode != "0000") {
+            res.json({ code: 0, msg: body.data.stateDesc || "更新失败" });
+            return;
+        } else {
+            res.json({ code: 1, msg: body.data.stateDesc || "保存成功" });
+            return;
+        }
+    });
+});
 module.exports = router;

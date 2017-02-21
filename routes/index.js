@@ -4,6 +4,7 @@ module.exports = function(app) {
     var chat = require('./chat');
     var detail = require('./detail');
     var set = require('./set');
+    var activation = require('./activation');
 
     app.use('/', routes); // 即为为路径 / 设置路由
     app.use('/users', users); // 即为为路径 /users 设置路由
@@ -14,4 +15,5 @@ module.exports = function(app) {
     app.use('/chat', chat); //chat route
     app.use('/detail', detail); //detail page
     app.use('/set', set); //set page
+    app.use('/activation', activation); //activation page
 }

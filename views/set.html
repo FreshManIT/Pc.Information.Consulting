@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">性别</label>
+                            <label class="layui-form-label">性别(*)</label>
                             <div class="layui-input-inline">
                                 <select name="city" style="display: block;" class="layui-input" lay-verify="required" onchange="SetCheckWayID('#hiddenSex',this)">
                                     <option value="1" <%=userModel.piFSex==1?'selected="selected"':''%>>男</option>
@@ -52,19 +52,19 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="L_city" class="layui-form-label">职位</label>
+                            <label for="L_city" class="layui-form-label">职位(*)</label>
                             <div class="layui-input-inline">
                                 <input type="text" id="hiddenJob" name="hiddenJob" autocomplete="off" value="<%=userModel.piFJob%>" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="L_city" class="layui-form-label">出生年月</label>
+                            <label for="L_city" class="layui-form-label">出生年月(*)</label>
                             <div class="layui-input-inline">
                                 <input type="text" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd' })" id="hiddenbirthday" name="hiddenbirthday" autocomplete="off" value="<%=new Date(userModel.piFBirthday).Format(" yyyy-MM-dd ")%>" class="layui-input" placeholder="输入分享时间">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="L_city" class="layui-form-label">确认密码</label>
+                            <label for="L_city" class="layui-form-label">确认密码(*)</label>
                             <div class="layui-input-inline">
                                 <input type="password" id="hiddenUpdataPassword" name="hiddenUpdataPassword" autocomplete="off" value="" class="layui-input" required="required">
                             </div>
@@ -79,45 +79,41 @@
                         <div class="layui-form-item">
                             <label for="L_nowpass" class="layui-form-label">当前密码</label>
                             <div class="layui-input-inline">
-                                <input type="password" id="L_nowpass" name="nowpass" required lay-verify="required" autocomplete="off" class="layui-input">
+                                <input type="password" id="oldPassword" name="oldPassword" required lay-verify="required" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label for="L_pass" class="layui-form-label">新密码</label>
                             <div class="layui-input-inline">
-                                <input type="password" id="L_pass" name="pass" required lay-verify="required" autocomplete="off" class="layui-input">
+                                <input type="password" id="newPassword" name="newPassword" required lay-verify="required" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label for="L_repass" class="layui-form-label">确认密码</label>
                             <div class="layui-input-inline">
-                                <input type="password" id="L_repass" name="repass" required lay-verify="required" autocomplete="off" class="layui-input">
+                                <input type="password" id="renewPassword" name="renewPassword" required lay-verify="required" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <button class="layui-btn" key="set-mine" lay-filter="*" lay-submit>确认修改</button>
+                            <button class="layui-btn" onclick="return updatauserPassword();" key="set-mine" lay-filter="*" lay-submit>确认修改</button>
                         </div>
                     </form>
                 </div>
 
                 <div class="layui-form layui-form-pane mine-view">
                     <ul class="app-bind">
-                        <li class="fly-msg  {{user.qq_id ? 'app-havebind' :''}}">
-                            <i class="iconfont icon-qq"></i>
-                            <span>已成功绑定，您可以使用QQ帐号直接登录Fly社区，当然，您也可以</span>
-                            <a href="javascript:;" class="acc-unbind" type="qq_id">解除绑定</a>
-
-                            <!-- <a href="" onclick="layer.msg('正在绑定微博QQ', {icon:16, shade: 0.1, time:0})" class="acc-bind" type="qq_id">立即绑定</a>
-            <span>，即可使用QQ帐号登录Fly社区</span> -->
-                        </li>
-                        <li class="fly-msg {{user.weibo_id ? 'app-havebind' :''}}">
-                            <i class="iconfont icon-weibo"></i>
-                            <!-- <span>已成功绑定，您可以使用微博直接登录Fly社区，当然，您也可以</span>
-            <a href="javascript:;" class="acc-unbind" type="weibo_id">解除绑定</a> -->
-
-                            <a href="" class="acc-weibo" type="weibo_id" onclick="layer.msg('正在绑定微博', {icon:16, shade: 0.1, time:0})">立即绑定</a>
-                            <span>，即可使用微博帐号登录Fly社区</span>
-                        </li>
+                        <%if(userModel.piFEmailActivation==1){%>
+                            <li class="fly-msg">
+                                <i class="iconfont"></i>
+                                <span>已成功绑定邮箱，您可以使用邮箱直接登录FM咨询系统。</span>
+                            </li>
+                            <%}else{%>
+                                <li class="fly-msg">
+                                    <i class="iconfont"></i>
+                                    <a href="javascript:sendactivationEmail();" class="acc-weibo" type="weibo_id">立即绑定邮箱</a>
+                                    <span>，即可使用邮箱帐号登录FM咨询系统</span>
+                                </li>
+                                <%}%>
                     </ul>
                 </div>
 
@@ -126,9 +122,9 @@
         </div>
         <%include footer.html%>
 
+            <script src="../layer/layer.js"></script>
             <script src="../set/setPage.js"></script>
             <script src="../My97DatePicker/WdatePicker.js"></script>
-            <script src="/layer/layer.js"></script>
 </body>
 
 </html>
