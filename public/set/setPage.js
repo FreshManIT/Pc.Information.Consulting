@@ -79,3 +79,76 @@ var updatauserInfo = function() {
     });
     return false;
 };
+
+/**
+ * 更新用户密码
+ */
+var updatauserPassword = function() {
+    var oldPassword = $("#oldPassword").val();
+    var newPassword = $("#newPassword").val();
+    var renewPassword = $("#renewPassword").val();
+    if (!oldPassword || oldPassword == "" || !newPassword || newPassword == "" || !renewPassword || renewPassword == "") {
+        layer.msg('必填项必填', { time: 3000, icon: 5 });
+        return false;
+    }
+    if (renewPassword != newPassword) {
+        layer.msg('两次输入不一致', { time: 3000, icon: 5 });
+        return false;
+    }
+    if (renewPassword == oldPassword) {
+        layer.msg('新密码和原始密码一致', { time: 3000, icon: 5 });
+        return false;
+    }
+    var data = { oldPassword: oldPassword, newPassword: newPassword };
+    $.ajax({
+        url: "/set/updatauserPassword",
+        type: "post",
+        data: data,
+        success: function(data, status) {
+            if (!data) {
+                layer.msg("保存失败", { icon: 5 });
+                return false;
+            }
+            if (data.code == 1) {
+                layer.msg("修改成功", { icon: 6 });
+                return false;
+            } else {
+                layer.msg(data.msg, { icon: 5 });
+                return false;
+            }
+        },
+        error: function(err) {
+            layer.msg("修改失败", { icon: 5 });
+            return false;
+        }
+    });
+    return false;
+};
+
+/**
+ * 发送验证邮件
+ */
+var sendactivationEmail = function() {
+    $.ajax({
+        url: "/set/sendactivationEmail",
+        type: "post",
+        success: function(data, status) {
+            if (!data) {
+                layer.msg("保存失败", { icon: 5 });
+                return false;
+            }
+            if (data.code == 1) {
+                layer.msg("邮件已发送，请登录邮箱查看", { icon: 6 });
+                return false;
+            } else {
+                layer.msg(data.msg, { icon: 5 });
+                return false;
+            }
+        },
+        error: function(err) {
+            layer.msg("修改失败", { icon: 5 });
+            return false;
+        }
+    });
+    return false;
+};
