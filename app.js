@@ -15,8 +15,8 @@ var app = express();
 //custormer middlewares
 var routes = require('./routes');
 var middlewares = require('./middlewares');
-var requirecrypto = require('./commonUtils/AESHelper');
-var aesHelper = new requirecrypto(config.session.key || "FreshMan");
+// var requirecrypto = require('./commonUtils/AESHelper');
+// var aesHelper = new requirecrypto(config.session.key || "FreshMan");
 
 /**
  * session

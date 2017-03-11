@@ -6,5 +6,5 @@ module.exports = {
         key: 'freshmanblog',
         maxAge: 2592000000
     },
-    apiUrl: 'http://localhost:9000/api'
+    apiUrl: 'http://127.0.0.1:5000/api'
 };
