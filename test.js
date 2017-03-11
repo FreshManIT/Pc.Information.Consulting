@@ -12,30 +12,30 @@ var options = {
     json: true
 };
 // var test = function() {
-rp('https://www.baidu.com/')
-    .then(function(htmlString) {
-        data.html = htmlString;
-    })
-    .then(function() {
-        data.sss = 1;
-    })
-    .then(rp(options)
-        .then(function(parsedBody) {
-            data.apiUrl = parsedBody;
-            console.log(parsedBody);
-        }))
-    .then(function() {
-        // console.log(JSON.stringify(data));
-        console.log("game over");
-    })
-    .catch(function(err) {
-        console.log(err);
-    });
+// rp('https://www.baidu.com/')
+//     .then(function(htmlString) {
+//         data.html = htmlString;
+//     })
+//     .then(function() {
+//         data.sss = 1;
+//     })
+//     .then(rp(options)
+//         .then(function(parsedBody) {
+//             data.apiUrl = parsedBody;
+//             // console.log(parsedBody);
+//         }))
+//     .then(function() {
+//         // console.log(JSON.stringify(data));
+//         console.log("game over");
+//     })
+//     .catch(function(err) {
+//         console.log(err);
+//     });
 // return data;
 // }
 // var dkaif = test();
-console.log(JSON.stringify(data))
-    // fRequest.postRequest(config.apiUrl + '/ChatInfoHistory/test', null);
+// console.log(JSON.stringify(data))
+// fRequest.postRequest(config.apiUrl + '/ChatInfoHistory/test', null);
 
 // var postData = queryString.stringify({
 //     'msg': 'Hello World!',
@@ -114,4 +114,23 @@ console.log(JSON.stringify(data))
 // console.log('error:'+JSON.stringify(error));
 // console.log('httpResponse:'+JSON.stringify(httpResponse.statusCode));
 // console.log('body:'+body);
-// });
+// }); 
+
+var  options  =   {      
+    hostname:   '127.0.0.1',
+          port: "5000",
+          path:   '/api/Values',
+          method:   'GET'  
+};    
+var  req  =  http.request(options,  function (res)  {      
+    console.log('STATUS: '  +  res.statusCode);      
+    console.log('HEADERS: '  +  JSON.stringify(res.headers));      
+    res.setEncoding('utf8');      
+    res.on('data',  function (chunk)  {          
+        console.log('BODY: '  +  chunk);      
+    });  
+});    
+req.on('error',  function (e)  {      
+    console.log('problem with request: '  +  e.message);  
+});    
+req.end(); 

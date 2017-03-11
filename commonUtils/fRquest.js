@@ -8,10 +8,6 @@ var option = {
     port: '80',
     method: 'GET',
     path: '',
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-            // 'Content-Length': Buffer.byteLength("fromId=2&toId=1&groupId=0&contentType=1&content=data")
-    },
     timeout: 3000
 };
 
@@ -26,11 +22,11 @@ var getRequest = function(path, callback) {
         callback(error, httpResponse, body);
         return;
     }
-    option.path = path;
     var requestLinkObj = url.parse(path);
     option.port = requestLinkObj.port;
     option.hostname = requestLinkObj.hostname;
-    // option.headers.
+    option.path = requestLinkObj.path;
+
     var request = http.request(option, function(res) {
         httpResponse = res;
         res.on('data', function(chunk) {
@@ -73,11 +69,15 @@ var postRequest = function(path, data, callback) {
         callback(error, httpResponse, body);
         return;
     }
-    option.path = path;
     var requestLinkObj = url.parse(path);
     option.port = requestLinkObj.port || 80;
     option.hostname = requestLinkObj.hostname;
     option.method = "POST";
+    option.path = requestLinkObj.path;
+    option.headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+            // 'Content-Length': Buffer.byteLength("fromId=2&toId=1&groupId=0&contentType=1&content=data")
+    };
     //Need post data.
     var postDataStr = querystring.stringify(data);
     var request = http.request(option, function(res) {

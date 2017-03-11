@@ -112,7 +112,7 @@ router.route("/sendactivationEmail").post(function(req, res) {
     };
     fRequest.postRequest(config.apiUrl + '/LoginUser/SendActivationEmail', data, function(error, httpResponse, body) {
         if (error || httpResponse.statusCode != 200 || !body || !body.data || body.data.stateCode != "0000") {
-            res.json({ code: 0, msg: body.data.stateDesc || "更新失败" });
+            res.json({ code: 0, msg: body && body.data ? (body.data.stateDesc) : "更新失败" });
             return;
         } else {
             res.json({ code: 1, msg: body.data.stateDesc || "保存成功" });
